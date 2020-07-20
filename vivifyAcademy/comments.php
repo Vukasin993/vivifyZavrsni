@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,28 +16,26 @@
 
     <!-- Custom styles for this template -->
     <link href="styles/blog.css" rel="stylesheet">
-    <link href="styles/style.css" rel="stylesheet">
 </head>
-<body>
-<header>
-<div class="blog-masthead">
-    <div class="container">
-        <nav class="nav">
-            <a class="nav-link active" href="#">Home</a>
-            <a class="nav-link" href="#">New features</a>
-            <a class="nav-link" href="#">Press</a>
-            <a class="nav-link" href="#">New hires</a>
-            <a class="nav-link" href="#">About</a>
-        </nav>
-    </div>
-</div>
 
-<div class="blog-header">
-    <div class="container">
-        <h1 class="blog-title">The Bootstrap Blog</h1>
-        <p class="lead blog-description">An example blog template built with Bootstrap.</p>
-    </div>
+<body>
+<?php 
+    include 'header.php'
+?>
+<main role="main" class="container">
+
+<div class="row">
+
+
+
+
+    <?php 
+    include 'sidebar.php'
+    ?>
 </div>
-</header>
+</main>
+<?php 
+    include 'footer.php'
+?>
 </body>
 </html>

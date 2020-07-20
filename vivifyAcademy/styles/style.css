@@ -1,0 +1,15 @@
+.post-form {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 300px;
+}
+
+.post-form button {
+    width: 50px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+
