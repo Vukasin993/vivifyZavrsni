@@ -31,5 +31,18 @@ h1, h2, h3, h4, h5, h6 {
     list-style-type: none;
 }
 
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin-bottom: 20px;
+}
 
+.comment-form label {
+    margin-bottom: 5px;
+}
+
+.comment-form input:last-child {
+    margin-top: 10px;
+}
 

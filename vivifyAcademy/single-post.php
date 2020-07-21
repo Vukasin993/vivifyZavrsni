@@ -3,17 +3,19 @@
 
   if (isset($_GET['post_id'])) {
 
-  $sql = "SELECT * FROM posts WHERE posts.id = {$_GET['post_id']}";
+  $sql = "SELECT * FROM posts WHERE posts.id = :post_id";
 
   $statement = $connection->prepare($sql);
+  $statement->bindParam(':post_id', $_GET['post_id']);
   $statement->execute();
   $statement->setFetchMode(PDO::FETCH_ASSOC);
   $singlePost = $statement->fetch();
   }
 
-  $sql2 = "SELECT * FROM posts  WHERE posts.id = {$_GET['post_id']}";
+  $sql2 = "SELECT * FROM posts  WHERE posts.id = :post_id";
 
     $statement = $connection->prepare($sql2);
+    $statement->bindParam(':post_id', $_GET['post_id']);
     $statement->execute();
     $statement->setFetchMode(PDO::FETCH_ASSOC);
     $results = $statement->fetchAll();
@@ -53,6 +55,30 @@
             <p><?php echo $singlePost['body']; ?></p>
         </div><!-- /.blog-post -->
 
+    <form class="comment-form" name="create-comment-form" action="create-comment.php" method="POST" onsubmit="return validateForm()">
+        <label for="author">Author</label>
+        <input type="text" name="author" placeholder="Author">
+        <label for="text">Text</label>
+        <textarea name="text" id="commentText" cols="30" rows="10" placeholder="Your comment"></textarea>
+        <input name="post_id" type="hidden" value="<?php echo ( $singlePost['id']); ?>">
+        <input type="submit" class="btn btn-default" value="Submit">
+    </form>
+    <script>
+                 function validateForm() {
+                    var x = document.forms["create-comment-form"]["author"].value;
+                    var y = document.forms["create-comment-form"]["text"].value;
+                    if (x == "" && y == "") {
+                        alert("Author and text must be filled out");
+                        return false;
+                    } else if (y == "") {
+                        alert("Text must be filled out");
+                        return false;
+                    } else if (x == "") {
+                        alert("Author must be filled out");
+                        return false;
+                    }
+                } 
+    </script>
 
 
         <script type="text/javascript">

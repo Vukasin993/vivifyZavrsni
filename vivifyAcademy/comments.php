@@ -6,8 +6,9 @@ $index=$_GET['post_id'];
     if (isset($_GET['post_id'])) {
   
 
-    $sql = "SELECT id, text, author FROM comments WHERE post_id = {$_GET['post_id']} ORDER BY id DESC";
+    $sql = "SELECT id, text, author FROM comments WHERE post_id = :post_id ORDER BY id DESC";
     $statement = $connection ->prepare($sql);
+    $statement->bindParam(':post_id', $_GET['post_id']);
     $statement->execute();
     $statement->setFetchMode(PDO::FETCH_ASSOC);
     $results = $statement->fetchAll();
@@ -43,6 +44,12 @@ $index=$_GET['post_id'];
                     <hr class="new1">
                     <p> <?php echo $result['author'] ?>: </p> <br>
                     <p> <?php echo $result['text'] ?></p>
+
+                    <form action="delete-comment.php" method="GET">
+                    <input type="hidden" value="<?php echo $result['id']; ?>" name="id"/>
+                    <input type="hidden" value="<?php echo $result['post_id']; ?>" name="post_id"/>
+                    <input class="btn btn-deffault" type="submit" value="Delete">
+            </form>
                 </li>
 
                 <?php 
