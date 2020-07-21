@@ -1,3 +1,13 @@
+body {
+    font-size: 14px;
+}
+h1, h2, h3, h4, h5, h6 {
+    color:  #b34848;
+}
+/* boja navbara */
+.blog-masthead, nav {
+    background-color: #b34848;
+}
 .post-form {
     width: 400px;
     display: flex;
@@ -10,6 +20,11 @@
     width: 50px;
     border-radius: 5px;
     margin-top: 10px;
+}
+
+.blog-post a:hover {
+    text-decoration: underline;
+    border-bottom-color: #b34848;
 }
 
 
