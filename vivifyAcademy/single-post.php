@@ -68,7 +68,7 @@
                     document.getElementById("showHide").innerHTML="hide comments";
                 }
             }
-</script>
+    </script>
 
         <?php 
              include 'comments.php';
