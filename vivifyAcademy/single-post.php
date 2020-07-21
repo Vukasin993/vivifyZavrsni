@@ -53,6 +53,23 @@
             <p><?php echo $singlePost['body']; ?></p>
         </div><!-- /.blog-post -->
 
+
+
+        <script type="text/javascript">
+            function hideComments(c) {
+                if(c === 'hide') {
+                    document.querySelectorAll('.comment-section')[0].classList.add('invisible');
+                    document.getElementById("showHide").value="show";
+                    document.getElementById("showHide").innerHTML="Show comments";
+                }
+                else if (c === 'show') {
+                    document.querySelectorAll('.comment-section')[0].classList.remove('invisible');
+                    document.getElementById("showHide").value="hide";
+                    document.getElementById("showHide").innerHTML="hide comments";
+                }
+            }
+</script>
+
         <?php 
              include 'comments.php';
         ?>

@@ -20,6 +20,7 @@ $index=$_GET['post_id'];
         if(empty($results)) {
     ?>
 
+
     <br><div class="publish-button"><p class="p.comment">Nema komentara na ovom postu, budi prvi koji ce komentarisati.</p></div>
     <?php 
         }
@@ -28,6 +29,9 @@ $index=$_GET['post_id'];
     <?php 
         if (!empty($results)) {
     ?>
+    <div style="display:inline-blocks; text-align: center;" class="add-comment">
+        <button style="width:30%" type="button" id="showHide" class="btn btn-default" value="hide" onclick="hideComments(this.value)";>Hide comments</button>
+    </div>
 
     <div class="comment-section">
             <ul class="ul-comments">
