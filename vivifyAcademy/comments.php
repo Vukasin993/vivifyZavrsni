@@ -1,41 +1,52 @@
-
-<!doctype html>
-<html lang="en">
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
-
-    <title>Vivify Blog</title>
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-
-    <!-- Custom styles for this template -->
-    <link href="styles/blog.css" rel="stylesheet">
-</head>
-
-<body>
 <?php 
-    include 'header.php'
+$index = 0;
+$index=$_GET['post_id'];
+    include 'db.php';
+
+    if (isset($_GET['post_id'])) {
+  
+
+    $sql = "SELECT id, text, author FROM comments WHERE post_id = {$_GET['post_id']} ORDER BY id DESC";
+    $statement = $connection ->prepare($sql);
+    $statement->execute();
+    $statement->setFetchMode(PDO::FETCH_ASSOC);
+    $results = $statement->fetchAll();
+
+    }
+
 ?>
-<main role="main" class="container">
-
-<div class="row">
-
-
-
 
     <?php 
-    include 'sidebar.php'
+        if(empty($results)) {
     ?>
-</div>
-</main>
+
+    <br><div class="publish-button"><p class="p.comment">Nema komentara na ovom postu, budi prvi koji ce komentarisati.</p></div>
+    <?php 
+        }
+    ?>
+
+    <?php 
+        if (!empty($results)) {
+    ?>
+
+    <div class="comment-section">
+            <ul class="ul-comments">
+                <?php 
+                    foreach($results as $result) {
+                ?>
+
+                <li>
+                    <hr class="new1">
+                    <p> <?php echo $result['author'] ?>: </p> <br>
+                    <p> <?php echo $result['text'] ?></p>
+                </li>
+
+                <?php 
+                    }
+                ?>
+            </ul>
+    </div>     
+            
 <?php 
-    include 'footer.php'
+    }
 ?>
-</body>
-</html>

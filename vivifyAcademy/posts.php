@@ -41,7 +41,7 @@ include 'db.php';
     foreach($results as $result) {
 ?>
         <div class="blog-post">
-        <a href="#"><h2 class="blog-post-title"><?php echo $result['title']; ?></h2></a>
+            <a href="single-post.php?post_id=<?php echo $result['id']; ?>"><h2 class="blog-post-title"><?php echo $result['title']; ?></h2></a>
             <p class="blog-post-meta"><?php echo $result['created_at']; ?> by <a href="#"><?php echo $result['author']; ?></a></p>
             <p><?php echo $result['body']; ?></p>
         </div><!-- /.blog-post -->

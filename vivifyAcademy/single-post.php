@@ -1,4 +1,24 @@
+<?php 
+  include 'db.php';
 
+  if (isset($_GET['post_id'])) {
+
+  $sql = "SELECT * FROM posts WHERE posts.id = {$_GET['post_id']}";
+
+  $statement = $connection->prepare($sql);
+  $statement->execute();
+  $statement->setFetchMode(PDO::FETCH_ASSOC);
+  $singlePost = $statement->fetch();
+  }
+
+  $sql2 = "SELECT * FROM posts  WHERE posts.id = {$_GET['post_id']}";
+
+    $statement = $connection->prepare($sql2);
+    $statement->execute();
+    $statement->setFetchMode(PDO::FETCH_ASSOC);
+    $results = $statement->fetchAll();
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,29 +47,22 @@
 <div class="row">
 
     <div class="col-sm-8 blog-main">
-    <div class="blog-post">
-    <a href="#"><h2 class="blog-post-title">New feature</h2></a>
-            <p class="blog-post-meta">December 14, 2013 by <a href="#">Chris</a></p>
-
-            <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <ul>
-                <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-                <li>Donec id elit non mi porta gravida at eget metus.</li>
-                <li>Nulla vitae elit libero, a pharetra augue.</li>
-            </ul>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-            <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
+           <div class="blog-post">
+            <a href="single-post.php?post_id=<?php echo $singlePost['id']; ?>"><h2 class="blog-post-title"><?php echo $singlePost['title']; ?></h2></a>
+            <p class="blog-post-meta"><?php echo $singlePost['created_at']; ?> by <a href="#"><?php echo $singlePost['author']; ?></a></p>
+            <p><?php echo $singlePost['body']; ?></p>
         </div><!-- /.blog-post -->
 
-        <nav class="blog-pagination">
-            <a class="btn btn-outline-primary" href="#">Older</a>
-            <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
-        </nav>
-
+        <?php 
+             include 'comments.php';
+        ?>
     </div><!-- /.blog-main -->
     <?php 
     include 'sidebar.php'
     ?>
+
+
+
 </div>
 </main>
 <?php 

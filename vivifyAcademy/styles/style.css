@@ -27,4 +27,8 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom-color: #b34848;
 }
 
+.ul-comments {
+    list-style-type: none;
+}
+
 
