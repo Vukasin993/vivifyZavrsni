@@ -55,6 +55,24 @@
             <p><?php echo $singlePost['body']; ?></p>
         </div><!-- /.blog-post -->
 
+
+        <div class="publish-button">
+                <form style="margin-bottom:30px;" id="delete" method="GET" action="delete-post.php" name="delete_post" onclick="deleteFunction()">
+                        <input type="hidden" value="<?php echo $singlePost['id']; ?>" name="post_id"/>
+                        <button class="btn btn-primary" type="submit" value="Delete">Delete</button>
+                </form>
+    </div>
+<!--
+    <script> 
+        function myFunction() {
+            var x = prompt("You really want to delete this post?");
+            if (x === 'yes' || x === 'Yes') {
+                var delete = true;
+            } else {
+                var delete = false;
+            }
+    </script>
+        -->
     <form class="comment-form" name="create-comment-form" action="create-comment.php" method="POST" onsubmit="return validateForm()">
         <label for="author">Author</label>
         <input type="text" name="author" placeholder="Author">

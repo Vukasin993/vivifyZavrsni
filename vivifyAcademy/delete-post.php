@@ -11,7 +11,7 @@ if (isset($_GET['post_id'])) {
     $statementDelete->setFetchMode(PDO::FETCH_ASSOC);
 
 
-    $DeletePost = "DELETE FROM posts WHERE id = $id";
+    $DeletePost = "DELETE FROM posts WHERE id = $post_id";
     $statementPost = $connection->prepare($DeletePost);
     $statementPost->execute();
     $statementPost->setFetchMode(PDO::FETCH_ASSOC);
