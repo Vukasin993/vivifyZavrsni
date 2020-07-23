@@ -1,4 +1,55 @@
+<?php 
+include 'db.php';
+// define variables and set to empty values
+$title = $author = $body = $created_at = "";
+$titleError = $authorError = $bodyError = $created_atError = "";
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST['title'])) {
+        $titleError = "title is required";
+    } else {
+        $title = test_input($_POST["title"]);
+    }
+    if (empty($_POST['author'])) {
+        $authorError = "Author is required";
+    } else {
+        $author = test_input($_POST["author"]);
+    }
+    if (empty($_POST['body'])) {
+        $bodyError = "Body is required";
+    } else {
+        $body = test_input($_POST["body"]);
+    }
+    if (empty($_POST['created_at'])) {
+        $created_atError = "Date is required";
+    } else {
+        $created_at = test_input($_POST["created_at"]);
+    }
+if ($title !== '' && $author !== '' && $body !== '') {
+    $sql = "INSERT INTO posts (title, body, author) values (? , ?, ?)";
+    $statement = $connection->prepare($sql);
+    $statement->execute([$title, $author, $body] );
+
+    header("Location: posts.php");
+} else { ?>
+    <div class="alert alert-danger">
+      <strong>Danger!</strong> You didn't fill all input fields.
+    </div>
+   <?php 
+   }  
+   
+
+    
+} 
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
+?>
 <body>
 <?php 
     include 'header.php'
@@ -22,16 +73,21 @@
     </div> <br>
 <div class="create-post-content">
     <div class="post-form"> 
-        <h2>Add new post</h2>
-    <form action="create-post.php" method="POST" >
-        <label for="title">Post title</label> <br>
-        <input type="text" name="title"> <br>
-        <label for="body">Post content</label> <br>
-        <textarea name="body" id="content-post" cols="30" rows="10"></textarea><br>
-        <label for="author">Author</label> <br>
-        <input type="text" name="author"> <br>
-        <label for="created_at">Created_at</label> <br>
-        <input type="date" name="created_at"> <br> <br>
+    <p><span class="error">* required field</span></p>
+    <form action="create.php" method="POST" >
+        Post title: <br>
+        <input type="text" name="title">
+        <span class="error">* <?php echo $titleError;?></span> <br>
+        Post Content:
+        <br>
+        <textarea name="body" id="content-post" cols="30" rows="10"></textarea>
+        <span class="error">* <?php echo $bodyError;?></span> <br><br>
+        Author: <br>
+        <input type="text" name="author"> 
+        <span class="error">* <?php echo $authorError;?></span> <br><br>
+        Created at: <br>
+        <input type="date" name="created_at"> 
+        <span class="error">* <?php echo $created_atError;?></span> <br><br> <br>
         <input  class="btn btn-default" type="submit" name="submit" value="Submit">
     </form>
 
