@@ -42,6 +42,7 @@ include 'db.php';
         include 'sidebar.php'
     ?>
 </div>
+Click here to clean <a href = "logout.php" tite = "Logout">Session.
 </main>
     <?php 
         include 'footer.php'
