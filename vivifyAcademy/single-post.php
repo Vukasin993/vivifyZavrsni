@@ -62,17 +62,16 @@
                         <button class="btn btn-primary" type="submit" value="Delete">Delete</button>
                 </form>
     </div>
-<!--
-    <script> 
-        function myFunction() {
-            var x = prompt("You really want to delete this post?");
-            if (x === 'yes' || x === 'Yes') {
-                var delete = true;
-            } else {
-                var delete = false;
-            }
+
+    <script type="text/javascript"> 
+                document.getElementById('delete').addEventListener("click", function(event){
+                event.preventDefault();
+                    if(window.confirm("Do you want to delete this post???")) {
+                            document.delete_post.submit();
+                    }
+                });        
     </script>
-        -->
+
     <form class="comment-form" name="create-comment-form" action="create-comment.php" method="POST" onsubmit="return validateForm()">
         <label for="author">Author</label>
         <input type="text" name="author" placeholder="Author">
