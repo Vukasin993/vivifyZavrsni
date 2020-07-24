@@ -132,7 +132,12 @@ h6,
 
 /* Pagination */
 .blog-pagination {
+    background-color: white;
     margin-bottom: 4rem;
+    width: 1050px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 .blog-pagination > .btn {
     border-radius: 2rem;

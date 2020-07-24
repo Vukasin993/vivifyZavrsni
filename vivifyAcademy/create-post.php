@@ -1,8 +1,8 @@
 <?php 
 include 'db.php';
 // define variables and set to empty values
-$title = $author = $body = $created_at = "";
-$titleError = $authorError = $bodyError = $created_atError = "";
+$title = $First_Name = $Last_Name = $body = $created_at = "";
+$titleError = $First_NameError = $Last_NameError = $bodyError = $created_atError = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST['title'])) {
@@ -10,10 +10,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $title = test_input($_POST["title"]);
     }
-    if (empty($_POST['author'])) {
-        $authorError = "Author is required";
+    if (empty($_POST['First_Name'])) {
+        $First_NameError = "First_Name is required";
     } else {
-        $author = test_input($_POST["author"]);
+        $First_Name = test_input($_POST["First_Name"]);
+    }
+    if (empty($_POST['Last_Name'])) {
+        $Last_NameError = "Last_Name is required";
+    } else {
+        $Last_Name = test_input($_POST["Last_Name"]);
     }
     if (empty($_POST['body'])) {
         $bodyError = "Body is required";
@@ -25,12 +30,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $created_at = test_input($_POST["created_at"]);
     }
-if ($title !== '' && $body !== '' && $author !== '') {
-    $sql = "INSERT INTO posts (title, body, author) values (:title, :body, :author)";
+if ($title !== '' && $body !== '' && $First_Name !== '' && $Last_Name !== '') {
+    $sql = "INSERT INTO posts (title, body) values (:title, :body)";
     $statement = $connection->prepare($sql);
     $statement->bindValue(':title', $title);
     $statement->bindValue(':body',  $body);
-    $statement->bindValue(':author', $author);
+    $statement->execute();
+    $statement->setFetchMode(PDO::FETCH_ASSOC);
+
+    $sql2 ="INSERT INTO users (First_Name, Last_Name) values (:First_Name, :Last_Name)";
+    $statement = $connection->prepare($sql2);
+    $statement->bindValue(':First_Name', $First_Name);
+    $statement->bindValue(':Last_Name',  $Last_Name);
     $statement->execute();
     $statement->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -86,9 +97,12 @@ function test_input($data) {
         <br>
         <textarea name="body" id="content-post" cols="30" rows="10"></textarea>
         <span class="error">* <?php echo $bodyError;?></span> <br><br>
-        Author: <br>
-        <input type="text" name="author"> 
-        <span class="error">* <?php echo $authorError;?></span> <br><br>
+        First Name: <br>
+        <input type="text" name="First_Name"> 
+        <span class="error">* <?php echo $First_NameError;?></span> <br><br>
+        Last Name: <br>
+        <input type="text" name="Last_Name"> 
+        <span class="error">* <?php echo $Last_NameError;?></span> <br><br>
         Created at: <br>
         <input type="date" name="created_at"> 
         <span class="error">* <?php echo $created_atError;?></span> <br><br> <br>

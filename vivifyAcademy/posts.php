@@ -1,7 +1,10 @@
 <?php 
 include 'db.php';
     
-    $sql = "SELECT * FROM posts ORDER BY created_at DESC";
+    $sql = "SELECT posts.id, posts.title, posts.body, posts.created_at, users.First_Name, users.Last_Name 
+    FROM posts 
+    INNER JOIN users on users.id = posts.user_id 
+    ORDER BY created_at DESC";
 
     $statement = $connection->prepare($sql);
     $statement->execute();
@@ -42,7 +45,7 @@ include 'db.php';
 ?>
         <div class="blog-post">
             <a href="single-post.php?post_id=<?php echo $result['id']; ?>"><h2 class="blog-post-title"><?php echo $result['title']; ?></h2></a>
-            <p class="blog-post-meta"><?php echo $result['created_at']; ?> by <a href="#"><?php echo $result['author']; ?></a></p>
+            <p class="blog-post-meta"><?php echo $result['created_at']; ?> by <a href="#"><?php echo $result['Last_Name'] . ' ' .$result['First_Name'] ; ?></a></p>
             <p><?php echo $result['body']; ?></p>
         </div><!-- /.blog-post -->
 
@@ -56,12 +59,12 @@ include 'db.php';
         </nav>
     </div><!-- /.blog-main -->
     <?php 
-    include 'sidebar.php'
+        include 'sidebar.php'
     ?>
 </div>
 </main>
-<?php 
-    include 'footer.php'
-?>
+    <?php 
+        include 'footer.php'
+    ?>
 </body>
 </html>

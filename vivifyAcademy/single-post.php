@@ -3,7 +3,9 @@
 
   if (isset($_GET['post_id'])) {
 
-  $sql = "SELECT * FROM posts WHERE posts.id = :post_id";
+  $sql = "SELECT posts.id, posts.title, posts.body, posts.created_at, users.First_Name, users.Last_Name 
+  FROM posts 
+  INNER JOIN users on users.id = posts.user_id WHERE posts.id = :post_id";
 
   $statement = $connection->prepare($sql);
   $statement->bindParam(':post_id', $_GET['post_id']);
@@ -12,7 +14,9 @@
   $singlePost = $statement->fetch();
   }
 
-  $sql2 = "SELECT * FROM posts  WHERE posts.id = :post_id";
+  $sql2 = "SELECT posts.id, posts.title, posts.body, posts.created_at, users.First_Name, users.Last_Name 
+  FROM posts 
+  INNER JOIN users on users.id = posts.user_id  WHERE posts.id = :post_id";
 
     $statement = $connection->prepare($sql2);
     $statement->bindParam(':post_id', $_GET['post_id']);
@@ -51,7 +55,7 @@
     <div class="col-sm-8 blog-main">
            <div class="blog-post">
             <a href="single-post.php?post_id=<?php echo $singlePost['id']; ?>"><h2 class="blog-post-title"><?php echo $singlePost['title']; ?></h2></a>
-            <p class="blog-post-meta"><?php echo $singlePost['created_at']; ?> by <a href="#"><?php echo $singlePost['author']; ?></a></p>
+            <p class="blog-post-meta"><?php echo $singlePost['created_at']; ?> by <a href="#"><?php echo  $singlePost['Last_Name'] . ' ' .$singlePost['First_Name']; ?></a></p>
             <p><?php echo $singlePost['body']; ?></p>
         </div><!-- /.blog-post -->
 
@@ -61,7 +65,7 @@
                         <input type="hidden" value="<?php echo $singlePost['id']; ?>" name="post_id"/>
                         <button class="btn btn-primary" type="submit" value="Delete">Delete</button>
                 </form>
-    </div>
+    </div> <!--  delete post form -->
 
     <script type="text/javascript"> 
                 document.getElementById('delete').addEventListener("click", function(event){
@@ -70,7 +74,7 @@
                             document.delete_post.submit();
                     }
                 });        
-    </script>
+    </script><!--  deleting post confirmation -->
 
     <form class="comment-form" name="create-comment-form" action="create-comment.php" method="POST" onsubmit="return validateForm()">
         <label for="author">Author</label>
@@ -79,7 +83,7 @@
         <textarea name="text" id="commentText" cols="30" rows="10" placeholder="Your comment"></textarea>
         <input name="post_id" type="hidden" value="<?php echo ( $singlePost['id']); ?>">
         <input type="submit" class="btn btn-default" value="Submit">
-    </form>
+    </form> <!--  create comment form -->
     <script>
                  function validateForm() {
                     var x = document.forms["create-comment-form"]["author"].value;
@@ -95,7 +99,7 @@
                         return false;
                     }
                 } 
-    </script>
+    </script>   <!--  validation form for create comment -->
 
 
         <script type="text/javascript">
@@ -111,7 +115,7 @@
                     document.getElementById("showHide").innerHTML="hide comments";
                 }
             }
-    </script>
+    </script> <!--  hide - show button -->
 
         <?php 
              include 'comments.php';
