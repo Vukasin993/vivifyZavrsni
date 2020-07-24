@@ -15,21 +15,33 @@
 
     <!-- Custom styles for this template -->
     <link href="styles/blog.css" rel="stylesheet">
-    <link href="styles/style.css" rel="stylesheet">
 </head>
+
 <body>
-<header>
-<div class="blog-masthead">
-    <div class="container">
-        <nav class="nav">
-            <a class="nav-link active" href="posts.php">Home</a>
-            <a class="nav-link" href="create-post.php">Create</a>
-            <a class="nav-link" href="login.php">Login</a>
-        </nav>
-    </div>
+<?php 
+    include 'header.php'
+?>
+<main role="main" class="container">
+
+<div class="row">
+
+
+    <form class="login-form" name="create-login-form" action="loginValidation.php" method="POST">
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="Username">
+        <label for="password">Password</label>
+        <input type="Password" name="password" placeholder="Password">
+        <input type="submit" class="btn btn-default" value="Submit">
+    </form> <!--  create login form -->
+
+    </div><!-- /.blog-main -->
+
+
+
 </div>
-
-
-</header>
+</main>
+<?php 
+    include 'footer.php'
+?>
 </body>
 </html>

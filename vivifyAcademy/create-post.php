@@ -65,7 +65,7 @@ function test_input($data) {
 }
 
 ?>
-<body>
+
 <?php 
     include 'header.php'
 ?>
@@ -116,5 +116,3 @@ function test_input($data) {
 <?php 
     include 'footer.php'
 ?>
-</body>
-</html>
